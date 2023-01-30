@@ -1,14 +1,13 @@
-todo-----------------------------
 /*----------------------------------------------------------------------------------*
- * A simple example of controlling one 1x7 flip-disc display                        *
- * Example connection diagram: https://bit.ly/1x1x7-ARD                             *
+ * A simple example of controlling two 1x7 flip-disc displays                       *
+ * Example connection diagram: https://bit.ly/2x1x7-ARD                             *
  *                                                                                  *
  * Project website: https://bit.ly/1x7-FD                                           *
  * Marcin Saj 30 Jan 2023                                                           *
  * https://www.Flipo.io                                                             *
  *                                                                                  *
- * A dedicated controller or any Arduino board with a power module is required      *
- * to operate the display:                                                          *
+ * Arduino board with a power module or dedicated controller is required to operate *
+ * the displays:                                                                    *
  * 1. Arduino board + Pulse Shaper Power Supply - https://bit.ly/PSPS-FD            *
  * 2. Or dedicated controller - https://bit.ly/AC1-FD                               *
  *----------------------------------------------------------------------------------*/
@@ -44,9 +43,10 @@ void setup()
   The function is used to declare pin functions. Before starting the device, double check 
   that the declarations and connection are correct. If the connection of the control outputs 
   is incorrect, the display may be physically damaged. */
+ 
   FlipDisc.Pin(EN_PIN, CH_PIN, PL_PIN);
   
-  /* FlipDisc.Init() it is second most important function. 
+  /* FlipDisc.Init(display1, display2, ... display8) it is second most important function. 
   Initialization function for a series of displays. Up to 8 displays can be connected in series 
   in any configuration. The function has 1 default argument and 7 optional arguments. 
   The function also prepares SPI. Correct initialization requires code names of the serially 
@@ -55,8 +55,9 @@ void setup()
   - DOTS - 2x1 or 3x1 dot display
   - FLIP3 - 1x3 display
   - FLIP7 - 1x7 display  
-  Example for two FLIP7 displays: FlipDisc.Init(FLIP7, FLIP7); */
-  FlipDisc.Init(FLIP7);
+  Example for four FLIP7 displays: FlipDisc.Init(FLIP7, FLIP7, FLIP7, FLIP7); */
+ 
+  FlipDisc.Init(FLIP7, FLIP7);
   delay(3000);
 }
 
@@ -93,8 +94,8 @@ void loop()
   FlipDisc.Clear();
   delay(1000);
 
-  /* Reset forth and fifth disc, set rest of discs */
-  FlipDisc.Flip7(1,1,1,1,0,0,1,1);
+  /* Reset the fourth and fifth disc, set the rest of discs */
+  FlipDisc.Flip7(2,1,1,1,0,0,1,1);
   delay(1000);
 
   FlipDisc.Clear();
@@ -110,13 +111,17 @@ void loop()
   - moduleNumber - relative number of the FLIP7 display
   - discNumber - display disc number counting from left to right 1-7
   - discStatus - reset disc "0" or set disc "1" */
+  
   /* Reset the fifth disc, counting from the left of the first display, 
   counting from the left */
   FlipDisc.ToFlip7(1, 5, 0);
   delay(1000);
 
-  /* Reset the seventh disc */
-  FlipDisc.ToFlip7(1, 7, 0);
+  FlipDisc.All();
+  delay(1000);
+ 
+ /* Reset the sixth disc of the second display */
+  FlipDisc.ToFlip7(2, 6, 0);
   delay(1000);
   
   FlipDisc.Clear();
@@ -134,7 +139,7 @@ void loop()
     for(int j = 1; j <= 7; j++)
     {
       FlipDisc.ToFlip7(1, j, 0);
-      FlipDisc.ToFlip7(1, (7+1)-j, 0);
+      FlipDisc.ToFlip7(2, (7+1)-j, 0);
       delay(200);  
     }
   }
