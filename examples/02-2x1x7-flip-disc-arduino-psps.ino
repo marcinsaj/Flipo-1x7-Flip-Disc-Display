@@ -143,7 +143,9 @@ void loop()
       delay(200);  
     }
   }
-
+  
+  delay(1000);
+  
   FlipDisc.All();
   delay(1000); 
 }
