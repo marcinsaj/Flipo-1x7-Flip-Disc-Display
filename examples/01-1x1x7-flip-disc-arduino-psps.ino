@@ -26,9 +26,9 @@ because the SPI.h library handles the SPI hardware pins. */
 #include <FlipDisc.h>   // https://github.com/marcinsaj/FlipDisc 
 
 // Pin declaration for Arduino Uno and PSPS module
-#define EN_PIN  10    // Start & End SPI transfer data
-#define CH_PIN  8     // Charging PSPS module - turn ON/OFF
-#define PL_PIN  9     // Release the current pulse - turn ON/OFF
+#define EN_PIN  10     // Start & End SPI transfer data
+#define CH_PIN  8      // Charging PSPS module - turn ON/OFF
+#define PL_PIN  9      // Release the current pulse - turn ON/OFF
 
 /*
 // Pin declaration for a dedicated controller
@@ -62,11 +62,11 @@ void setup()
 
 void loop() 
 {
-  /* The function is used to turn off (clear) all displays */
+  /* The function is used to turn off (clear)display */
   Flip.Clear();
   delay(1000);
   
-  /* The function is used to turn on (set) all discs of all displays */
+  /* The function is used to turn on (set) all discs */
   Flip.All();
   delay(1000);
 
@@ -74,48 +74,43 @@ void loop()
   delay(1000);
 
   /* The function allows you to control up to seven discs of the selected display. 
-  Flip.Display_1x7(disc1,disc2,disc3,disc4,disc5,disc6,disc7);
-  The first argument is the relative number "module_number" of the display in the series 
-  of all displays. For example, if we have a combination of D1X7, D7SEG, D1X7, 
-  then the second D1X7 display will have a relative number of 2 even though 
-  there is a D7SEG display between the D1X7 displays.
-  - module_number - relative number of the D1X7 display
+  Flip.Display_1x7(module_number, disc1,disc2,disc3,disc4,disc5,disc6,disc7);
+  - module_number - relative number of the D1X7 display - in this case there is only one display
   - disc1, disc2, disc3, disc4, disc5, disc6, disc7 - counting from left to right 1-7 */
+  
   /* Set first and second disc */
   Flip.Display_1x7(1,1,1);
-  delay(1000);
+  delay(2000);
 
   Flip.Clear();
   delay(1000);
 
-  /* Reset forth and fifth disc, set rest of discs */
+  /* Reset 4th and 5th disc, set rest of discs */
   Flip.Display_1x7(1,1,1,1,0,0,1,1);
-  delay(1000);
+  delay(2000);
 
   Flip.All();
   delay(1000);
 
   /* Function allows you to control a selected disc in a selected D1X7 display.
   You can control only one disc of the selected display at a time.
-  Flip.Disc_1x7(module_number, discNumber, discStatus);
+  Flip.Disc_1x7(module_number, disc_number, disc_status);
   The first argument module_number is the relative number of the display 
-  in the series of all displays. For example, if we have a combination of 
-  D1X7, D7SEG, D1X7, then the second D1X7 display will have a relative number of 2 
-  even though there is a D7SEG display between the D1X7 displays.
+  in the series of all displays - in this case there is only one display
   - module_number - relative number of the D1X7 display
-  - discNumber - display disc number counting from left to right 1-7
-  - discStatus - reset disc "0" or set disc "1" */
-  /* Reset the fifth disc, counting from the left of the first display, 
-  counting from the left */
+  - disc_number - display disc number counting from left to right 1-7
+  - disc_status - reset disc "0" or set disc "1" */
+  
+  /* Reset the 5th disc */
   Flip.Disc_1x7(1, 5, 0);
-  delay(1000);
+  delay(2000);
 
-  /* Reset the seventh disc */
+  /* Reset the 7th disc */
   Flip.Disc_1x7(1, 7, 0);
-  delay(1000);
+  delay(2000);
   
   Flip.Clear();
-  delay(1000); 
+  delay(1000);
 
   Test1();
   Test2();
