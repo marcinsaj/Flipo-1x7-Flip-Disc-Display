@@ -26,9 +26,9 @@ because the SPI.h library handles the SPI hardware pins. */
 #include <FlipDisc.h>   // https://github.com/marcinsaj/FlipDisc 
 
 // Pin declaration for Arduino Uno and PSPS module
-#define EN_PIN  10    // Start & End SPI transfer data
-#define CH_PIN  A0     // Charging PSPS module - turn ON/OFF
-#define PL_PIN  A1     // Release the current pulse - turn ON/OFF
+#define EN_PIN  10     // Start & End SPI transfer data
+#define CH_PIN  8      // Charging PSPS module - turn ON/OFF
+#define PL_PIN  9      // Release the current pulse - turn ON/OFF
 
 /*
 // Pin declaration for a dedicated controller
