@@ -7,7 +7,7 @@
  * https://www.Flipo.io                                                             *
  *                                                                                  *
  * Arduino board with a power module or dedicated controller is required to operate *
- * the display:                                                                    *
+ * the displays:                                                                    *
  * 1. Arduino board + Pulse Shaper Power Supply - https://bit.ly/PSPS-FD            *
  * 2. Or dedicated controller - https://bit.ly/AC1-FD                               *
  *----------------------------------------------------------------------------------*/
